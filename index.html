@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Woordenschat — Paragraaf 1 t/m 4</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#657089;--accent:#6d5dfc;--line:#e3e7ef}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:28px 18px;background:linear-gradient(135deg,#27215f,#6d5dfc);color:white}.wrap{max-width:1050px;margin:auto;padding:0 18px}
+h1{margin:0 0 8px;font-size:clamp(28px,6vw,46px)}header p{margin:0;opacity:.88;max-width:760px}
+nav{position:sticky;top:0;z-index:10;background:white;border-bottom:1px solid var(--line)}.tabs{max-width:1050px;margin:auto;display:flex;gap:8px;padding:10px 18px;overflow:auto}
+button,.tab{font:inherit;border:0;border-radius:12px;padding:10px 14px;cursor:pointer}.tab{background:#eef0f7;color:var(--ink);white-space:nowrap}.tab.active{background:var(--accent);color:white}
+main{padding:24px 0 50px}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 4px 20px rgba(25,30,60,.05)}.card h3{margin:0 0 8px;font-size:20px}
+.definition{margin:0 0 9px;line-height:1.45}.simple{margin:0;color:var(--muted);font-size:14px;line-height:1.45}.pill{display:inline-block;font-size:12px;padding:5px 8px;border-radius:999px;background:#eceaff;color:#5144d7;margin-bottom:10px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 20px}input,select{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:white;min-width:220px}
+.flash{max-width:650px;margin:0 auto}.flash-card{min-height:290px;display:grid;place-items:center;text-align:center;cursor:pointer;user-select:none}
+.flash-term{font-size:clamp(28px,7vw,56px);font-weight:800}.flash-def{font-size:clamp(19px,4vw,28px);line-height:1.35}.hint{color:var(--muted);font-size:14px}
+.quiz-box{max-width:760px;margin:auto}.quiz-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);margin-bottom:12px}
+.progress{height:10px;background:#e8ebf2;border-radius:99px;overflow:hidden;margin-bottom:20px}.progress>div{height:100%;background:var(--accent);width:0}
+.question{font-size:26px;font-weight:750;margin-bottom:18px}.options{display:grid;gap:10px}.option{background:white;border:2px solid var(--line);text-align:left}.option:hover{border-color:var(--accent)}
+.option.correct{border-color:#27a56a;background:#eafaf2}.option.wrong{border-color:#e05a6f;background:#fff0f3}.next{margin-top:16px;background:var(--accent);color:white;display:none}
+.result{text-align:center}.result h2{font-size:34px;margin-bottom:5px}.bigscore{font-size:64px;font-weight:850;color:var(--accent);margin:10px 0}.small{color:var(--muted)}
+.category-title{margin:28px 0 12px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.stat{background:white;border:1px solid var(--line);padding:12px 14px;border-radius:14px}
+.note{background:#fffdf0;border:1px solid #f0e4a9;padding:13px 15px;border-radius:14px;color:#5d5420;margin:12px 0 18px}
+@media (max-width:600px){.tabs{padding-left:10px;padding-right:10px}.wrap{padding:0 12px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>📚 Woordenschat — Paragraaf 1 t/m 4</h1><p>Een simpele plek om te leren: woordenlijst, flashcards en een quiz. Alles is gebaseerd op de aangeleverde woordenlijst.</p></div></header>
+<nav><div class="tabs">
+<button class="tab active" data-tab="learn">📖 Leren</button><button class="tab" data-tab="flash">🃏 Flashcards</button><button class="tab" data-tab="quiz">🧠 Quiz</button>
+</div></nav>
+<main class="wrap">
+<section id="learn" class="panel active">
+<div class="note">Tip: leer eerst de <b>simpel uitgelegd</b>-zin. Controleer daarna of je de officiële definitie nog kent.</div>
+<div class="controls"><input id="search" placeholder="Zoek een woord of betekenis…"><select id="catFilter"><option value="all">Alle onderdelen</option></select></div>
+<div id="learnList"></div>
+</section>
+<section id="flash" class="panel">
+<div class="flash"><div class="stats"><div class="stat">Kaart <span id="flashIndex">1</span> / <span id="flashTotal">43</span></div><div class="stat">Klik op de kaart om het antwoord te zien</div></div>
+<div id="flashCard" class="card flash-card" tabindex="0"></div>
+<div class="controls" style="justify-content:center"><button id="prevBtn" class="tab">← Vorige</button><button id="shuffleBtn" class="tab">🔀 Shuffle</button><button id="nextBtn" class="tab">Volgende →</button></div></div>
+</section>
+<section id="quiz" class="panel">
+<div class="quiz-box"><div class="controls"><select id="quizCategory"><option value="all">Alle onderdelen</option></select><select id="quizLength"><option value="10">10 vragen</option><option value="20">20 vragen</option><option value="all">Alles</option></select><button id="startQuiz" class="tab" style="background:var(--accent);color:white">Start quiz</button></div>
+<div id="quizArea"><div class="card"><h2>🧠 Klaar om te testen?</h2><p class="small">De quiz maakt meerkeuzevragen met de woorden en definities uit de lijst.</p></div></div></div>
+</section>
+</main>
+<script>
+const items = [{"term": "adequaat", "definition": "passend; zoals nodig is", "simple": "Passend bij de situatie; precies wat nodig is.", "category": "Woordraadstrategieën"}, {"term": "reduceren", "definition": "terugdringen", "simple": "Minder maken of terugdringen.", "category": "Woordraadstrategieën"}, {"term": "parallel (de)", "definition": "overeenkomst", "simple": "Een overeenkomst of gelijkenis.", "category": "Woordraadstrategieën"}, {"term": "consensus (de)", "definition": "overeenstemming", "simple": "Wanneer mensen het met elkaar eens zijn.", "category": "Woordraadstrategieën"}, {"term": "ornitholoog (de)", "definition": "vogeldeskundige", "simple": "Een deskundige die vogels bestudeert.", "category": "Woordraadstrategieën"}, {"term": "vitaal", "definition": "fit en krachtig", "simple": "Fit, sterk en vol energie.", "category": "Woordraadstrategieën"}, {"term": "leek (de)", "definition": "ondeskundige", "simple": "Iemand die ergens geen deskundige in is.", "category": "Woordraadstrategieën"}, {"term": "relatief", "definition": "betrekkelijk", "simple": "Vergeleken met iets anders; niet absoluut.", "category": "Woordraadstrategieën"}, {"term": "dientengevolge", "definition": "daardoor", "simple": "Daardoor; als gevolg daarvan.", "category": "Woordraadstrategieën"}, {"term": "al naargelang", "definition": "afhankelijk van", "simple": "Afhankelijk van de situatie of omstandigheid.", "category": "Woordraadstrategieën"}, {"term": "pseudoniem (het)", "definition": "schuilnaam; verzonnen naam waaronder iemand iets publiceert", "simple": "Een verzonnen naam waarmee iemand iets publiceert.", "category": "Grieks & Latijn"}, {"term": "megalomaan", "definition": "wat getuigt van grootheidswaanzin", "simple": "Iets dat laat zien dat iemand zichzelf extreem belangrijk of machtig vindt.", "category": "Grieks & Latijn"}, {"term": "microkrediet (het)", "definition": "financiering op kleine schaal", "simple": "Een kleine lening of financiering.", "category": "Grieks & Latijn"}, {"term": "innovatie (de)", "definition": "vernieuwing (vaak in technische zin)", "simple": "Een vernieuwing, vaak op technisch gebied.", "category": "Grieks & Latijn"}, {"term": "anarchistisch", "definition": "geen staatsgezag aanvaardend", "simple": "Geen gezag van de staat accepteren.", "category": "Grieks & Latijn"}, {"term": "collectief", "definition": "gemeenschappelijk; wat geldt voor een grote groep", "simple": "Gemeenschappelijk of bedoeld voor een grote groep.", "category": "Grieks & Latijn"}, {"term": "monogamie (de)", "definition": "het samenleven met één vaste partner", "simple": "Samenleven met één vaste partner.", "category": "Grieks & Latijn"}, {"term": "symbiose (de)", "definition": "samenleven van twee ongelijksoortige organismen die daar beide voordeel van hebben", "simple": "Twee verschillende organismen leven samen en hebben daar allebei voordeel van.", "category": "Grieks & Latijn"}, {"term": "extramurale zorg (de)", "definition": "zorg aan patiënten die niet in ziekenhuizen en verpleeghuizen verblijven", "simple": "Zorg voor patiënten die niet in een ziekenhuis of verpleeghuis verblijven.", "category": "Grieks & Latijn"}, {"term": "crescendo", "definition": "toenemend; stijgend; langzaam sterker wordend", "simple": "Steeds sterker of groter wordend.", "category": "Grieks & Latijn"}, {"term": "medium (het)", "definition": "middel (om informatie te verspreiden)", "simple": "Een middel om informatie te verspreiden.", "category": "Grieks & Latijn"}, {"term": "oratie (de)", "definition": "redevoering; toespraak; (ook:) eerste openbare college van een hoogleraar", "simple": "Een toespraak; ook het eerste openbare college van een hoogleraar.", "category": "Grieks & Latijn"}, {"term": "humaan", "definition": "menselijk", "simple": "Menselijk.", "category": "Grieks & Latijn"}, {"term": "ad hoc", "definition": "voor de zaak; voor dit doel in het bijzonder", "simple": "Speciaal voor deze zaak of dit doel.", "category": "Latijnse begrippen"}, {"term": "ad rem", "definition": "gepast; ter zake; (ook:) gevat", "simple": "Passend en to the point; soms ook: gevat.", "category": "Latijnse begrippen"}, {"term": "alter ego (het)", "definition": "andere kant van jezelf; tweede ik", "simple": "Een andere kant van jezelf; je 'tweede ik'.", "category": "Latijnse begrippen"}, {"term": "casu quo (c.q.)", "definition": "in het zich voordoende geval", "simple": "In het geval dat zich voordoet.", "category": "Latijnse begrippen"}, {"term": "conditio sine qua non (de)", "definition": "noodzakelijke vowaarin zich iets bevindt; bestaande toestand", "simple": "Een noodzakelijke voorwaarde/toestand waar iets van afhangt.", "category": "Latijnse begrippen"}, {"term": "sub rosa", "definition": "vertrouwelijk; in vertrouwen", "simple": "Vertrouwelijk; iets wordt in vertrouwen gezegd of gedaan.", "category": "Latijnse begrippen"}, {"term": "tabula rasa (de)", "definition": "onbeschreven blad; schone lei", "simple": "Een nieuw begin zonder eerdere informatie of ervaringen.", "category": "Latijnse begrippen"}, {"term": "terra incognita (geen lidw.)", "definition": "onbekend land; zaak waarvan men niets weet", "simple": "Onbekend terrein of iets waarover men niets weet.", "category": "Latijnse begrippen"}, {"term": "Divide et impera", "definition": "Verdeel en heers.", "simple": "Verdeel een groep zodat je die makkelijker kunt beheersen.", "category": "Latijnse uitdrukkingen"}, {"term": "Errare humanum est", "definition": "Vergissen is menselijk.", "simple": "Iedereen maakt weleens fouten.", "category": "Latijnse uitdrukkingen"}, {"term": "In vino veritas", "definition": "Wie dronken is, laat zijn ware aard zien (letterlijk: in wijn de waarheid)", "simple": "Door drank zou iemand eerder zijn ware aard of waarheid laten zien.", "category": "Latijnse uitdrukkingen"}, {"term": "Memento mori", "definition": "Gedenk te sterven.", "simple": "Denk eraan dat het leven eindig is.", "category": "Latijnse uitdrukkingen"}, {"term": "Mens sana in corpore sano", "definition": "Een gezonde geest in een gezond lichaam.", "simple": "Een gezonde geest en een gezond lichaam horen bij elkaar.", "category": "Latijnse uitdrukkingen"}, {"term": "Morituri te salutant", "definition": "Zij die gaan sterven, groeten u.", "simple": "Een groet van mensen die hun dood tegemoet gaan.", "category": "Latijnse uitdrukkingen"}, {"term": "Nil volentibus arduum", "definition": "Niets te moeilijk voor hen die willen.", "simple": "Wie echt wil, vindt niets te moeilijk.", "category": "Latijnse uitdrukkingen"}, {"term": "Nomen est omen", "definition": "De naam is een voorteken.", "simple": "Een naam lijkt iets te zeggen over degene of zaak die hem draagt.", "category": "Latijnse uitdrukkingen"}, {"term": "Pecunia non olet", "definition": "Geld stinkt niet.", "simple": "De betekenis in de woordenlijst is letterlijk: geld stinkt niet.", "category": "Latijnse uitdrukkingen"}, {"term": "Ora et labora", "definition": "Bid en werk.", "simple": "Bid én werk; geloof combineren met inspanning.", "category": "Latijnse uitdrukkingen"}, {"term": "Quo vadis?", "definition": "Waarheen gaat gij?", "simple": "Waar ga je heen?", "category": "Latijnse uitdrukkingen"}, {"term": "Si vis pacem, para bellum", "definition": "Wie de vrede liefheeft, wapene zich ten oorlog.", "simple": "Wie vrede wil, moet voorbereid zijn om zich te verdedigen.", "category": "Latijnse uitdrukkingen"}, {"term": "Vanitas vanitatum, omnia vanitas", "definition": "IJdelheid der ijdelheden, alles is ijdelheid.", "simple": "Uiterlijk succes en aardse dingen zijn vergankelijk en uiteindelijk leeg.", "category": "Latijnse uitdrukkingen"}];
+const cats=[...new Set(items.map(x=>x.category))];
+const learnList=document.getElementById('learnList'),search=document.getElementById('search'),catFilter=document.getElementById('catFilter'),quizCategory=document.getElementById('quizCategory');
+cats.forEach(c=>{catFilter.insertAdjacentHTML('beforeend',`<option value="${c}">${c}</option>`);quizCategory.insertAdjacentHTML('beforeend',`<option value="${c}">${c}</option>`);});
+function renderLearn(){
+ const q=search.value.toLowerCase().trim(),cat=catFilter.value;
+ const filtered=items.filter(x=>(cat==='all'||x.category===cat)&&(x.term.toLowerCase().includes(q)||x.definition.toLowerCase().includes(q)||x.simple.toLowerCase().includes(q)));
+ if(!filtered.length){learnList.innerHTML='<div class="card">Geen resultaten gevonden.</div>';return;}
+ const groups={};filtered.forEach(x=>(groups[x.category]??=[]).push(x));
+ learnList.innerHTML=Object.entries(groups).map(([cat,arr])=>`<h2 class="category-title">${cat}</h2><div class="grid">${arr.map(x=>`<article class="card"><div class="pill">${x.category}</div><h3>${x.term}</h3><p class="definition"><b>Definitie:</b> ${x.definition}</p><p class="simple"><b>Simpel:</b> ${x.simple}</p></article>`).join('')}</div>`).join('');
+}
+search.addEventListener('input',renderLearn);catFilter.addEventListener('change',renderLearn);renderLearn();
+
+document.querySelectorAll('.tab[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.tab[data-tab]').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+ btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');
+}));
+
+let flashDeck=[...items],flashIndex=0,showingAnswer=false;const flashCard=document.getElementById('flashCard');
+function renderFlash(){
+ const x=flashDeck[flashIndex];document.getElementById('flashIndex').textContent=flashIndex+1;
+ flashCard.innerHTML=showingAnswer?`<div><div class="pill">${x.category}</div><div class="flash-def">${x.definition}</div><p class="simple" style="margin-top:14px">Simpel: ${x.simple}</p></div>`:`<div><div class="pill">${x.category}</div><div class="flash-term">${x.term}</div><p class="hint">Klik om het antwoord te draaien</p></div>`;
+}
+function nextFlash(){flashIndex=(flashIndex+1)%flashDeck.length;showingAnswer=false;renderFlash()}
+function prevFlash(){flashIndex=(flashIndex-1+flashDeck.length)%flashDeck.length;showingAnswer=false;renderFlash()}
+flashCard.addEventListener('click',()=>{showingAnswer=!showingAnswer;renderFlash()});
+flashCard.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showingAnswer=!showingAnswer;renderFlash()}});
+document.getElementById('nextBtn').onclick=nextFlash;document.getElementById('prevBtn').onclick=prevFlash;
+document.getElementById('shuffleBtn').onclick=()=>{flashDeck.sort(()=>Math.random()-.5);flashIndex=0;showingAnswer=false;renderFlash()};renderFlash();
+
+let quiz=[],qIndex=0,score=0,answered=false;const quizArea=document.getElementById('quizArea');
+function makeQuestion(x){
+ const mode=Math.random()<.5?'termToDef':'defToTerm';let question,correct;
+ if(mode==='termToDef'){question=`Wat betekent <b>${x.term}</b>?`;correct=x.definition}else{question=`Welk woord hoort bij: <b>${x.definition}</b>?`;correct=x.term}
+ const pool=items.filter(i=>i.term!==x.term).sort(()=>Math.random()-.5).slice(0,3).map(i=>mode==='termToDef'?i.definition:i.term);
+ return {question,correct,options:[correct,...pool].sort(()=>Math.random()-.5)};
+}
+function startQuiz(){
+ const cat=quizCategory.value;let pool=items.filter(x=>cat==='all'||x.category===cat).sort(()=>Math.random()-.5);
+ const lengthValue=document.getElementById('quizLength').value;if(lengthValue!=='all')pool=pool.slice(0,Math.min(+lengthValue,pool.length));
+ quiz=pool.map(makeQuestion);qIndex=0;score=0;answered=false;renderQuestion();
+}
+function renderQuestion(){
+ const q=quiz[qIndex],pct=Math.round(qIndex/quiz.length*100);
+ quizArea.innerHTML=`<div class="quiz-meta"><span>Vraag ${qIndex+1} van ${quiz.length}</span><span>Score: ${score}</span></div><div class="progress"><div style="width:${pct}%"></div></div><div class="card"><div class="question">${q.question}</div><div class="options">${q.options.map((o,i)=>`<button class="option" data-i="${i}">${o}</button>`).join('')}</div><button id="nextQuestion" class="next">Volgende →</button></div>`;
+ quizArea.querySelectorAll('.option').forEach(btn=>btn.addEventListener('click',()=>answer(+btn.dataset.i)));
+}
+function answer(idx){
+ if(answered)return;answered=true;const q=quiz[qIndex];
+ quizArea.querySelectorAll('.option').forEach((btn,i)=>{if(btn.textContent===q.correct)btn.classList.add('correct');if(i===idx&&btn.textContent!==q.correct)btn.classList.add('wrong');btn.disabled=true});
+ if(q.options[idx]===q.correct)score++;
+ const next=document.getElementById('nextQuestion');next.style.display='inline-block';
+ next.onclick=()=>{qIndex++;if(qIndex>=quiz.length)renderResult();else{answered=false;renderQuestion()}};
+ quizArea.querySelector('.quiz-meta span:last-child').textContent=`Score: ${score}`;
+}
+function renderResult(){
+ const pct=Math.round(score/quiz.length*100),msg=pct>=90?'🔥 Heel sterk!':pct>=70?'👏 Goed bezig!':pct>=50?'💪 Nog even oefenen!':'📚 Tijd voor een extra ronde!';
+ quizArea.innerHTML=`<div class="card result"><h2>${msg}</h2><div class="bigscore">${score} / ${quiz.length}</div><p>Je score is <b>${pct}%</b>.</p><button id="retry" class="tab" style="background:var(--accent);color:white">Nog een keer</button></div>`;
+ document.getElementById('retry').onclick=startQuiz;
+}
+document.getElementById('startQuiz').onclick=startQuiz;
+</script>
+</body>
+</html>
