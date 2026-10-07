@@ -84,7 +84,9 @@ function makeQuestion(x){
  const mode=Math.random()<.5?'termToDef':'defToTerm';let question,correct;
  if(mode==='termToDef'){question=`Wat betekent <b>${x.term}</b>?`;correct=x.definition}else{question=`Welk woord hoort bij: <b>${x.definition}</b>?`;correct=x.term}
  const pool=items.filter(i=>i.term!==x.term).sort(()=>Math.random()-.5).slice(0,3).map(i=>mode==='termToDef'?i.definition:i.term);
- return {question,correct,options:[correct,...pool].sort(()=>Math.random()-.5)};
+ const options=[correct,...pool].sort(()=>Math.random()-.5);
+ const correctIndex=options.indexOf(correct);
+ return {question,correct,options,correctIndex};
 }
 function startQuiz(){
  const cat=quizCategory.value;let pool=items.filter(x=>cat==='all'||x.category===cat).sort(()=>Math.random()-.5);
@@ -98,8 +100,13 @@ function renderQuestion(){
 }
 function answer(idx){
  if(answered)return;answered=true;const q=quiz[qIndex];
- quizArea.querySelectorAll('.option').forEach((btn,i)=>{if(btn.textContent===q.correct)btn.classList.add('correct');if(i===idx&&btn.textContent!==q.correct)btn.classList.add('wrong');btn.disabled=true});
- if(q.options[idx]===q.correct)score++;
+ const isCorrect=idx===q.correctIndex;
+ quizArea.querySelectorAll('.option').forEach((btn,i)=>{
+   if(i===q.correctIndex)btn.classList.add('correct');
+   if(i===idx&&!isCorrect)btn.classList.add('wrong');
+   btn.disabled=true;
+ });
+ if(isCorrect)score++;
  const next=document.getElementById('nextQuestion');next.style.display='inline-block';
  next.onclick=()=>{qIndex++;if(qIndex>=quiz.length)renderResult();else{answered=false;renderQuestion()}};
  quizArea.querySelector('.quiz-meta span:last-child').textContent=`Score: ${score}`;
